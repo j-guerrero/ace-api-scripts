@@ -4,6 +4,10 @@ var loopback = require('./agents/loopback.js');
 // Declare a new LoopBack agent with your local LoopBack API URL.
 var loopbackAgent = new loopback('http://localhost:3000/api');
 
+// toFile module
+var toFile = require('./toFile');
+var fileName = './saved_geojson.geojson';
+
 // Initialize the LoopBack agent by logging in to the /MobileUsers
 // endpoint. The LoopBack agent will save the authentication token
 // internally for use in all subsequent requests.
@@ -25,11 +29,16 @@ loopbackAgent.initialize('/MobileUsers/login', {
     // The asynchronous loopbackAgent.get() task has finished.
     //
     // Output the results of the GET operation.
-    console.log('Timestamp: ' + results.WeatherReports[0].Position.timestamp);
-    console.log('Latitude: ' + results.WeatherReports[0].Position.latlng.lat);
-    console.log('Longitude: ' + results.WeatherReports[0].Position.latlng.lng);
-    console.log('Cloud Cover: ' + results.WeatherReports[0].cloudCover);
-    console.log('Precipitation: ' + results.WeatherReports[0].precipitation);
-    console.log('Visibility: ' + results.WeatherReports[0].visibility);
+    // console.log('Timestamp: ' + results.WeatherReports[0].Position.timestamp);
+    // console.log('Latitude: ' + results.WeatherReports[0].Position.latlng.lat);
+    // console.log('Longitude: ' + results.WeatherReports[0].Position.latlng.lng);
+    // console.log('Cloud Cover: ' + results.WeatherReports[0].cloudCover);
+    // console.log('Precipitation: ' + results.WeatherReports[0].precipitation);
+    // console.log('Visibility: ' + results.WeatherReports[0].visibility);
+
+
+    toFile(results, fileName);
+    
+
     // Etc.
   });
