@@ -117,10 +117,44 @@ NEXT STEPS:   * easily deleting resources
   };
 
 
-/* --- HTTP REQUEST --- */
-  // Send HTTP request with attributes attached via 'options', then handle responses
-  // Takes JSON with set parameters, ('package_options' or 'resource_options').
-  request(resource_options, function(error, response, body){
+/* TESTING */
+// Creates header options with given parameters for uploading file to CKAN
+function resource_create_options(name, description, format, filePath){
+    var fullHeader = {
+      url : rsrc_api_create,        // URL = Resource API function (create, update)
+      headers:  auth_header,        // Uses key to direct data
+      method: 'POST',               // Indicates data submission
+      formData : {
+        name: name,
+        description : description,
+        package_id: pkg_name,                         // Package name or unique ID #
+        url : 'http://this.url.gets.ignored',             // (string) USE DUMMY URL WHEN UPLOADING
+        /* ^ URL NOT OPTIONAL ^ */
+        format : format,                                   // File extension
+        upload: fs.createReadStream(filePath)                 // Attached file
+      }
+    };
+
+    return fullHeader;
+  };
+
+
+// /* --- HTTP REQUEST --- */
+//   // Send HTTP request with attributes attached via 'options', then handle responses
+//   // Takes JSON with set parameters, ('package_options' or 'resource_options').
+//   request(resource_options, function(error, response, body){
+//     if(error){  return console.error('Request Failed:', error);  }
+//     console.log(body);
+//   });
+
+var http_rsrc_create = module.exports = function(fileName, fileDesc,fileFormat,filePath)
+{
+  console.log("CREATING HEADER");
+  var header = resource_create_options(fileName, fileDec, fileFormat, filePath);  // NOT ACCESSING RIGHT
+
+  console.log("CREATING RESOURCE");
+  request(header, function(error, response, body){
     if(error){  return console.error('Request Failed:', error);  }
     console.log(body);
   });
+}

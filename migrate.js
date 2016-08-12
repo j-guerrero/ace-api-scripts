@@ -8,6 +8,9 @@ var loopbackAgent = new loopback('http://localhost:3000/api');
 var toFile = require('./toFile');
 var fileName = './saved_geojson.geojson';
 
+//ckan_file_import
+var importFile = require('./ckan_file_import');
+
 // Initialize the LoopBack agent by logging in to the /MobileUsers
 // endpoint. The LoopBack agent will save the authentication token
 // internally for use in all subsequent requests.
@@ -38,7 +41,10 @@ loopbackAgent.initialize('/MobileUsers/login', {
 
 
     toFile(results, fileName);
-    
+
+    //function(fileName, fileDesc,fileFormat,filePath)
+    importFile("Test","Test",".geojson",fileName);
+
 
     // Etc.
   });
