@@ -40,9 +40,13 @@ loopbackAgent.initialize('/MobileUsers/login', {
     // console.log('Visibility: ' + results.WeatherReports[0].visibility);
 
 
+    // Imported from toFile.js
+    // function(results, fileName)
+    // Data pulled from LoopBack (results) is saved to passed file path (fileName)
     toFile(results, fileName);
 
-    //function(fileName, fileDesc,fileFormat,filePath)
+    // function(fileName, fileDesc,fileFormat,filePath)
+    // imported from ckan_file_import.js
     importFile("Test","Test",".geojson",fileName);
 
 

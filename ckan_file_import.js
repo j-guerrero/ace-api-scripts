@@ -32,6 +32,7 @@ PROBLEMS: * Unable to delete dataset but can create and update.
               --- Can bring back from deleted status by updating 'state' attribute to 'active' vs 'deleted'
 
           * Can't update or delete resource by name. Must have ID# associated with it
+              -- ID can just be package name
 
 MILESTONES:   * HTTP requests
                 -- Authentication
@@ -65,7 +66,7 @@ NEXT STEPS:   * easily deleting resources
   var api_key = '2d5be043-0f44-4bc5-96c5-a28aff57fd07';   // From 'demo.ckan.org' user page
   var auth_header = { 'Authorization' : api_key };
 
-  // JSON attributes
+  // DEFAULT JSON ATTRIBUTES
   var pkg_name = "wakaflakaflame";
   var file = './saved_geojson.geojson';
 
@@ -78,7 +79,7 @@ NEXT STEPS:   * easily deleting resources
     state : "active"
   }
 
-  // RESOURCE: Creation details
+  // RESOURCE: CREATION header
     // http://docs.ckan.org/en/latest/api/#ckan.logic.action.create.resource_create
   var rsrc_data_create = {
     name: "JPEG test",
@@ -90,7 +91,7 @@ NEXT STEPS:   * easily deleting resources
     upload: fs.createReadStream(file)                 // Attached file
   }
 
-  // RESOURCE: Update details
+  // RESOURCE: UPDATE header
     // http://docs.ckan.org/en/latest/api/#ckan.logic.action.update.resource_update
   // Requires unique ID to resource
   var rsrc_data_update = {
@@ -119,8 +120,13 @@ NEXT STEPS:   * easily deleting resources
 
 /* TESTING */
 // Creates header options with given parameters for uploading file to CKAN
-function resource_create_options(name, description, format, filePath){
-    var fullHeader = {
+function resource_creation_options(name, description, format, filePath)
+{
+  /* !!! DEBUGGING !!! */
+  console.log("IN FUNCTION");
+  /* !!! DEBUGGING !!! */
+
+  var filledHeader = {
       url : rsrc_api_create,        // URL = Resource API function (create, update)
       headers:  auth_header,        // Uses key to direct data
       method: 'POST',               // Indicates data submission
@@ -135,8 +141,8 @@ function resource_create_options(name, description, format, filePath){
       }
     };
 
-    return fullHeader;
-  };
+    return filledHeader;
+}
 
 
 // /* --- HTTP REQUEST --- */
@@ -149,10 +155,21 @@ function resource_create_options(name, description, format, filePath){
 
 var http_rsrc_create = module.exports = function(fileName, fileDesc,fileFormat,filePath)
 {
-  console.log("CREATING HEADER");
-  var header = resource_create_options(fileName, fileDec, fileFormat, filePath);  // NOT ACCESSING RIGHT
+  /* !!! DEBUGGING !!! */
+  // console.log("CREATING HEADER");
+  //
+  // console.log(fileName);
+  // console.log(fileDesc);
+  // console.log(fileFormat);
+  // console.log(filePath);
+  /* !!! DEBUGGING !!! */
 
+  var header = resource_creation_options(fileName, fileDec, fileFormat, filePath);  // NOT ACCESSING RIGHT
+
+  /* !!! DEBUGGING !!! */
   console.log("CREATING RESOURCE");
+  /* !!! DEBUGGING !!! */
+
   request(header, function(error, response, body){
     if(error){  return console.error('Request Failed:', error);  }
     console.log(body);
