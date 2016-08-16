@@ -118,7 +118,7 @@ NEXT STEPS:   * easily deleting resources
   };
 
 
-/* --- IN PROGRESS ---  */
+/* --- TESTING --- IN PROGRESS ---  */
 // resource_creation_options
 // Creates header options with given parameters for uploading file to CKAN
 function resource_creation_options(name, description, format, filePath)
@@ -144,16 +144,6 @@ function resource_creation_options(name, description, format, filePath)
 
     return filledHeader;
 }
-
-
-// /* --- HTTP REQUEST --- WORKING --- */
-//   // Send HTTP request with attributes attached via 'options', then handle responses
-//   // Takes JSON with set parameters, ('package_options' or 'resource_options').
-//   request(resource_options, function(error, response, body){
-//     if(error){  return console.error('Request Failed:', error);  }
-//     console.log(body);
-//   });
-
 
 /* --- CUSTOM HTTP REQUEST FOR RESOURCE UPLOAD--- IN PROGRESS --- */
 // Function to be exported and used in migrate.js module
@@ -197,3 +187,11 @@ var http_rsrc_create = module.exports = function(fileName, fileDesc,fileFormat,f
     console.log(body);
   });
 }
+
+/* --- HTTP REQUEST --- WORKING --- */
+//   // Send HTTP request with attributes attached via 'options', then handle responses
+//   // Takes JSON with set parameters, ('package_options' or 'resource_options').
+//   request(resource_options, function(error, response, body){
+//     if(error){  return console.error('Request Failed:', error);  }
+//     console.log(body);
+//   });
