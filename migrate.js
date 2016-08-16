@@ -5,10 +5,12 @@ var loopback = require('./agents/loopback.js');
 var loopbackAgent = new loopback('http://localhost:3000/api');
 
 // toFile module
+// Used to convert LoopBack data to uploadable file
 var toFile = require('./toFile');
 var fileName = './saved_geojson.geojson';
 
-//ckan_file_import
+// ckan_file_import
+// Used for uploading file to CKAN server
 var importFile = require('./ckan_file_import');
 
 // Initialize the LoopBack agent by logging in to the /MobileUsers

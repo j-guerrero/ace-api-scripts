@@ -145,7 +145,7 @@ function resource_creation_options(name, description, format, filePath)
 }
 
 
-// /* --- HTTP REQUEST --- */
+// /* --- HTTP REQUEST --- WORKING --- */
 //   // Send HTTP request with attributes attached via 'options', then handle responses
 //   // Takes JSON with set parameters, ('package_options' or 'resource_options').
 //   request(resource_options, function(error, response, body){
@@ -153,6 +153,10 @@ function resource_creation_options(name, description, format, filePath)
 //     console.log(body);
 //   });
 
+
+/* --- CUSTOM HTTP REQUEST FOR RESOURCE UPLOAD--- IN PROGRESS --- */
+// Function to be exported and used in migrate.js module
+// Takes file information and creates header for upload to CKAN server
 var http_rsrc_create = module.exports = function(fileName, fileDesc,fileFormat,filePath)
 {
   /* !!! DEBUGGING !!! */
