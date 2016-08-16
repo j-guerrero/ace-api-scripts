@@ -118,7 +118,8 @@ NEXT STEPS:   * easily deleting resources
   };
 
 
-/* TESTING */
+/* --- IN PROGRESS ---  */
+// resource_creation_options
 // Creates header options with given parameters for uploading file to CKAN
 function resource_creation_options(name, description, format, filePath)
 {
@@ -159,22 +160,39 @@ function resource_creation_options(name, description, format, filePath)
 // Takes file information and creates header for upload to CKAN server
 var http_rsrc_create = module.exports = function(fileName, fileDesc,fileFormat,filePath)
 {
-  /* !!! DEBUGGING !!! */
+  // /* !!! DEBUGGING !!! */
   // console.log("CREATING HEADER");
   //
   // console.log(fileName);
   // console.log(fileDesc);
   // console.log(fileFormat);
   // console.log(filePath);
-  /* !!! DEBUGGING !!! */
+  // /* !!! DEBUGGING !!! */
 
-  var header = resource_creation_options(fileName, fileDec, fileFormat, filePath);  // NOT ACCESSING RIGHT
+  // var header = resource_creation_options(fileName, fileDec, fileFormat, filePath);  // NOT ACCESSING RIGHT
+
+  var formData = {
+    name: fileNamename,
+    description : fileDesc,
+    package_id: pkg_name,                         // Package name or unique ID #
+    url : 'http://this.url.gets.ignored',             // (string) USE DUMMY URL WHEN UPLOADING
+    /* ^ URL NOT OPTIONAL ^ */
+    format : fileFormat,                                   // File extension
+    upload: fs.createReadStream(filePath)                 // Attached file
+  }
+
+  var filledHeader = {
+      url : rsrc_api_create,        // URL = Resource API function (create, update)
+      headers:  auth_header,        // Uses key to direct data
+      method: 'POST',               // Indicates data submission
+      formData : formData
+    };
 
   /* !!! DEBUGGING !!! */
   console.log("CREATING RESOURCE");
   /* !!! DEBUGGING !!! */
 
-  request(header, function(error, response, body){
+  request(filledHeaderheader, function(error, response, body){
     if(error){  return console.error('Request Failed:', error);  }
     console.log(body);
   });
